@@ -1,16 +1,22 @@
-<?php 
+<?php
+require_once 'Entiteiten/canon.php';
+require_once 'Entiteiten/shield.php';
+
 class Spaceship
 {
     public string $naam;
     public int $lengte;
     public int $HP;
-    public int  $aanval;        
-    public function __construct(string $naam, int $lengte, int $HP, int $aanval )
+    public int  $aanval;   
+    public array $Cannons = [];
+    public array $Shields = [];
+    public function __construct(string $naam, int $lengte, int $HP, int $aanval )     
    {
  $this->naam = $naam;
  $this->lengte = $lengte;
  $this->HP = $HP;
  $this->aanval = $aanval;
+ $this->Cannons = [];
 
    }
 
@@ -19,6 +25,12 @@ class Spaceship
 
     return $this->naam;
    }
+
+     public function __setName(string $naam) : void
+   {
+    $this->naam = $naam;
+   }
+
 
    public function __getLength() : int
    {
@@ -38,10 +50,16 @@ class Spaceship
     return $this->aanval;
    }
 
-   public function __setName(string $naam) : void
-   {
-    $this->naam = $naam;
-   }
+ 
+   public function __AddCanon(Canon $Canon)
+    {
+        $this->Cannons[] = $Canon;
+    }
+
+    public function __AddShield(Shield $Shield)
+    {
+        $this->Shields[] = $Shield;
+    }
 
 };
 ?>
