@@ -2,8 +2,9 @@
 require_once 'Entiteiten/Entiteit.php';
 require_once 'Entiteiten/canon.php';
 require_once 'Entiteiten/shield.php';
+require_once 'interfaces/IMovable.php';
 
-class Spaceship extends Entiteit
+class Spaceship extends Entiteit implements IMovable
 {
     public string $naam;
     public int $lengte;
@@ -11,6 +12,8 @@ class Spaceship extends Entiteit
     public int  $aanval;   
     public array $Cannons = [];
     public array $Shields = [];
+    public int $position = 0;
+
     public function __construct(string $naam, int $lengte, int $HP, int $aanval )     
    {
  $this->naam = $naam;
@@ -62,5 +65,14 @@ class Spaceship extends Entiteit
         $this->Shields[] = $Shield;
     }
 
-};
-?>
+    public function move(int $distance): void
+    {
+        $this->position += $distance;
+    }
+
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+}

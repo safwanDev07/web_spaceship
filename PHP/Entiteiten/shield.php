@@ -1,8 +1,9 @@
 <?php
 
 require_once __DIR__ . '/Entiteit.php';
+require_once __DIR__ . '/../interfaces/IDefense.php';
 
-class Shield extends Entiteit
+class Shield extends Entiteit implements IDefense
 {
     public string $Name;
     public int $Durabillity;
@@ -16,5 +17,20 @@ class Shield extends Entiteit
         $this->Durabillity = $Durabillity;
         $this->Recharge = $Recharge;
         $this->RechargeTime = $RechargeTime;
+    }
+
+    public function absorbDamage(int $damage): int
+    {
+        if ($this->Durabillity > 0) {
+            $absorbed = min($damage, $this->Durabillity);
+            $this->Durabillity -= $absorbed;
+            return $damage - $absorbed;
+        }
+        return $damage;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->Durabillity > 0;
     }
 }

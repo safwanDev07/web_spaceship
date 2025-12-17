@@ -1,8 +1,9 @@
 <?php
 
 require_once __DIR__ . '/Entiteit.php';
+require_once __DIR__ . '/../interfaces/IWeapon.php';
 
-class Canon extends Entiteit
+class Canon extends Entiteit implements IWeapon
 {
    public string $Name;
    public int $MinDamage;
@@ -19,7 +20,15 @@ class Canon extends Entiteit
       $this->RechargeTime = $RechargeTime;
    }
 
-}
+   public function getDamage(): int
+   {
+       return rand($this->MinDamage, $this->MaxDamage);
+   }
 
-?>
+   public function fire(): int
+   {
+       return $this->getDamage();
+   }
+
+}
 ?>
